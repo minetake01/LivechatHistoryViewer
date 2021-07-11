@@ -1,0 +1,25 @@
+{
+	"manifest_version": 3,
+	"name": "YoutubeChatOverwrite",
+	"version": "0.0.2",
+	"description": "Youtubeのチャットを見やすくします。",
+	//"icons": {
+    	//"16": "icon/icon16.png",
+    	//"48": "icon/icon48.png",
+    	//"128": "icon/icon128.png"
+	//},
+	"permissions": [
+		
+	],
+	"content_scripts": [{
+		"matches": ["https://www.youtube.com/*"],
+		"include_globs": ["*://*/*live_chat*"],
+		"all_frames": true,
+		"run_at": "document_end",
+		"js": ["jquery-3.6.0.min.js", "content_script.js"]
+	}],
+	"background": {
+		"matches": ["https://*.youtube.com/*"],
+        "service_worker": "background.js"
+    }
+}
