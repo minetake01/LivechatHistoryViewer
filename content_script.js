@@ -22,23 +22,38 @@ function DevTools(tool, input) {
 	HElement_item_scroller = document.getElementById('item-scroller');
 	HElement_items_plugin = document.getElementById('items-plugin');
 
+	var chatNum = 0;
+	var MaxViewChat = Math.floor(HElement_item_scroller.clientHeight / 33);
+
 	//表示するチャットの数だけ要素を追加
-	createChatSpace();
+	createChatSpace(MaxViewChat);
 
 	//元々あったチャットを表示
 	var ChatList = HElement_item_offset.querySelectorAll('yt-live-chat-text-message-renderer');
 	ChatList.forEach(Chat => {
-		appendChat(Chat);
+		if (chatNum < MaxViewChat-1) {
+			chatNum++
+		} else {
+			chatNum = 0;
+		};
+		appendChat(Chat, chatNum);
 	});
 
 	//新しいチャットを表示
 	var observeElement = HElement_item_offset.firstElementChild;
 	var observer = new MutationObserver(NewChatObject => {
 		NewChatObject.forEach(NewChatList => {
-			for (var i = 0; i < NewChatList.addedNodes.length; i++) {
-				appendChat(NewChatList.addedNodes[i]);
-				format();
-			};
+			NewChatList.addedNodes.forEach(NewChat => {
+				if (NewChat.tagName === "YT-LIVE-CHAT-TEXT-MESSAGE-RENDERER") {
+					if (chatNum < MaxViewChat-1) {
+						chatNum++
+					} else {
+						chatNum = 0;
+					};
+					appendChat(NewChat, chatNum);
+					format();
+				}
+			})
 		});
 	});
 	observer.observe(observeElement, {
@@ -58,37 +73,29 @@ function DevTools(tool, input) {
 //CSS初期化
 function format() {
 	//$('#item-scroller').css('overflow-y', 'clip')
-
 	$('yt-live-chat-text-message-renderer').css({'height': '23px', "padding-top": "5px", "padding-bottom": "5px"});	//コメントのCSSを設定
-
-	$('yt-live-chat-paid-message-renderer').css('display', 'none');	//スパチャ非表示
-
 	$('yt-live-chat-viewer-engagement-message-renderer').remove();	//最初に表示されるアレを削除する。
-
 	$('#item-offset').css('display', 'none');	//既存のチャット欄非表示
-
 	$('#show-more').remove();	//下までスクロールするやつ削除
+
+	$('yt-live-chat-ticker-renderer').removeAttr('hidden');
+	var observer = new MutationObserver(function() {$('yt-live-chat-ticker-renderer').removeAttr('hidden')});
+    try {
+        observer.observe(document.getElementsByClassName('ticker'), {attributes: true});
+    } catch(e) {}
 };
 
 //表示するチャットの数だけ要素を生成
-function createChatSpace() {
-	var MaxViewChat = Math.floor(HElement_item_scroller.clientHeight / 33);
+function createChatSpace(MaxViewChat) {
 	for (var n = 1; n <= MaxViewChat; n++) {
-		$('#items-plugin').append('<div></div>')
+		$('#items-plugin').append('<yt-live-chat-text-message-renderer></yt-live-chat-text-message-renderer>')
 	};
 };
 
 //要素を更新
-var chatNum = 0;
-function appendChat(node) {
-	var MaxViewChat = Math.floor(HElement_item_scroller.clientHeight / 33);
+function appendChat(node, chatNum) {
 	var pluginChat = HElement_items_plugin.childNodes;
-
-	if (chatNum < MaxViewChat-1) {
-		chatNum++
-	} else {
-		chatNum = 0;
-	};
+	
 	$('#items-plugin yt-live-chat-text-message-renderer').eq(chatNum).css('opacity', 1);
 	HElement_items_plugin.replaceChild(node, pluginChat.item(chatNum));
 	$('#items-plugin yt-live-chat-text-message-renderer').eq(chatNum+1).css('opacity', 0.5);
