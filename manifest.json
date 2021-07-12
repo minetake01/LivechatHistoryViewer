@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
-	"name": "YoutubeChatOverwrite",
-	"version": "0.0.2",
+	"name": "YoutubeLiveChat＋",
+	"version": "0.0.3",
 	"description": "Youtubeのチャットを見やすくします。",
 	//"icons": {
     	//"16": "icon/icon16.png",
