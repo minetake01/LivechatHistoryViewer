@@ -12,7 +12,18 @@ function DevTools(tool, input) {
 /////////////////////////////////////デバッグ用/////////////////////////////////////
 
 ///////////////////////////////////////本文///////////////////////////////////////
-(function main() {
+//リロード時にフレーム再読み込み
+(function boot() {
+	main();
+	$(window).resize(function() {
+		location.reload();
+	});
+	var observer = new MutationObserver(function() { main() });
+    try { observer.observe(document.getElementById('view-selector'), {childList: true}) } catch(e) {};
+})();
+
+
+function main() {
 	format();
 
 	$('#item-scroller').append('<div id="item-offset-plugin" class="style-scope yt-live-chat-item-list-renderer"></div>');	//拡張チャット欄の生成
@@ -60,19 +71,11 @@ function DevTools(tool, input) {
 		childList: true
 	});
 
-})();
-
-//リロード時にフレーム再読み込み
-(function reloadAtResize() {
-	$(window).resize(function() {
-		location.reload();
-	});
-})();
-
+};
 
 //CSS初期化
 function format() {
-	//$('#item-scroller').css('overflow-y', 'clip')
+	$('#item-scroller').css('overflow-y', 'clip')
 	$('yt-live-chat-text-message-renderer').css({'height': '23px', "padding-top": "5px", "padding-bottom": "5px"});	//コメントのCSSを設定
 	$('yt-live-chat-viewer-engagement-message-renderer').remove();	//最初に表示されるアレを削除する。
 	$('#item-offset').css('display', 'none');	//既存のチャット欄非表示
@@ -80,9 +83,7 @@ function format() {
 
 	$('yt-live-chat-ticker-renderer').removeAttr('hidden');
 	var observer = new MutationObserver(function() {$('yt-live-chat-ticker-renderer').removeAttr('hidden')});
-    try {
-        observer.observe(document.getElementsByClassName('ticker'), {attributes: true});
-    } catch(e) {}
+    try { observer.observe(document.getElementsByClassName('ticker'), {attributes: true}) } catch(e) {};
 };
 
 //表示するチャットの数だけ要素を生成
