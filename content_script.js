@@ -54,7 +54,8 @@ function main() {
 	var observer = new MutationObserver(NewChatObject => {
 		NewChatObject.forEach(NewChatList => {
 			NewChatList.addedNodes.forEach(NewChat => {
-				if (NewChat.tagName === "YT-LIVE-CHAT-TEXT-MESSAGE-RENDERER") {
+				var conds = ["YT-LIVE-CHAT-TEXT-MESSAGE-RENDERER", "YT-LIVE-CHAT-PAID-MESSAGE-RENDERER", "YT-LIVE-CHAT-MEMBERSHIP-ITEM-RENDERER"];
+				if (conds.includes(NewChat.tagName)) {
 					if (chatNum < MaxViewChat-1) {
 						chatNum++
 					} else {
@@ -62,8 +63,8 @@ function main() {
 					};
 					appendChat(NewChat, chatNum);
 					format();
-				}
-			})
+				};
+			});
 		});
 	});
 	observer.observe(observeElement, {
@@ -74,7 +75,7 @@ function main() {
 
 //CSS初期化
 function format() {
-	$('#item-scroller').css('overflow-y', 'clip')
+	//$('#item-scroller').css('overflow-y', 'clip')
 	$('yt-live-chat-text-message-renderer').css({'height': '23px', "padding-top": "5px", "padding-bottom": "5px"});	//コメントのCSSを設定
 	$('yt-live-chat-viewer-engagement-message-renderer').remove();	//最初に表示されるアレを削除する。
 	$('#item-offset').css('display', 'none');	//既存のチャット欄非表示
