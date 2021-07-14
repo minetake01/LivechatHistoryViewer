@@ -16,7 +16,8 @@
 		"include_globs": ["*://*/*live_chat*"],
 		"all_frames": true,
 		"run_at": "document_end",
-		"js": ["jquery-3.6.0.min.js", "content_script.js"]
+		"js": ["jquery-3.6.0.min.js", "content_script.js"],
+		"css": ["chatStyle.css"]
 	}],
 	"background": {
 		"matches": ["https://*.youtube.com/*"],

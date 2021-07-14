@@ -18,12 +18,18 @@ function DevTools(tool, input) {
 		location.reload();
 	});
 	var observer = new MutationObserver(function() { main() });
-    try { observer.observe(document.getElementById('view-selector'), {childList: true}) } catch(e) {};
+    try { observer.observe(document.getElementById('view-selector'), {childList: true}) } catch(e) {DevTools('log', e)};
 })();
 
 
 function main() {
-	format();
+	$('yt-live-chat-ticker-renderer').removeAttr('hidden');	//スパチャ欄を常に表示
+	var observer = new MutationObserver(function() {$('yt-live-chat-ticker-renderer').removeAttr('hidden')});
+    try { observer.observe(document.getElementsByTagName('yt-live-chat-ticker-renderer'), {attributes: true}) } catch(e) {};
+	$('yt-live-chat-viewer-engagement-message-renderer').remove();	//最初に表示されるアレを削除する。
+	$('#show-more').remove();	//下までスクロールするやつ削除
+
+	$('yt-live-chat-text-message-renderer').css({'height': '23px', "padding-top": "5px", "padding-bottom": "5px"});	//コメントのCSSを設定
 
 	$('#item-scroller').append('<div id="item-offset-plugin" class="style-scope yt-live-chat-item-list-renderer"></div>');	//拡張チャット欄の生成
 	$('#item-offset-plugin').append('<div id="items-plugin" class="style-scope yt-live-chat-item-list-renderer"></div>');	//拡張チャット欄の生成
@@ -62,7 +68,7 @@ function main() {
 						chatNum = 0;
 					};
 					appendChat(NewChat, chatNum);
-					format();
+					$('yt-live-chat-text-message-renderer').css({'height': '23px', "padding-top": "5px", "padding-bottom": "5px"});	//コメントのCSSを設定
 				};
 			});
 		});
@@ -71,19 +77,6 @@ function main() {
 		childList: true
 	});
 
-};
-
-//CSS初期化
-function format() {
-	//$('#item-scroller').css('overflow-y', 'clip')
-	$('yt-live-chat-text-message-renderer').css({'height': '23px', "padding-top": "5px", "padding-bottom": "5px"});	//コメントのCSSを設定
-	$('yt-live-chat-viewer-engagement-message-renderer').remove();	//最初に表示されるアレを削除する。
-	$('#item-offset').css('display', 'none');	//既存のチャット欄非表示
-	$('#show-more').remove();	//下までスクロールするやつ削除
-
-	$('yt-live-chat-ticker-renderer').removeAttr('hidden');
-	var observer = new MutationObserver(function() {$('yt-live-chat-ticker-renderer').removeAttr('hidden')});
-    try { observer.observe(document.getElementsByClassName('ticker'), {attributes: true}) } catch(e) {};
 };
 
 //表示するチャットの数だけ要素を生成
