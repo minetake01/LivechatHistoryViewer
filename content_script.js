@@ -24,8 +24,6 @@ function DevTools(tool, input) {
 
 function main() {
 	$('yt-live-chat-ticker-renderer').removeAttr('hidden');	//スパチャ欄を常に表示
-	var observer = new MutationObserver(function() {$('yt-live-chat-ticker-renderer').removeAttr('hidden')});
-    try { observer.observe(document.getElementsByTagName('yt-live-chat-ticker-renderer'), {attributes: true}) } catch(e) {};
 	$('yt-live-chat-viewer-engagement-message-renderer').remove();	//最初に表示されるアレを削除する。
 	$('#show-more').remove();	//下までスクロールするやつ削除
 

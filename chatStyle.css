@@ -6,8 +6,6 @@ item-scroller{
 #item-offset{
     display: none;
 }
-yt-live-chat-text-message-renderer{
-    height: 23;
-    padding-top: 5px;
-    padding-bottom: 5px;
+yt-live-chat-ticker-renderer[hidden] {
+    display: block !important;
 }
