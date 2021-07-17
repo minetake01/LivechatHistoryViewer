@@ -1,11 +1,13 @@
-/*
-item-scroller{
-    overflow-y: clip;
+#chat-history{
+    height: 250px;
+    width: auto;
 }
-*/
-#item-offset{
-    display: none;
+#tab-select-bar > div {
+    margin: 4px;
 }
-yt-live-chat-ticker-renderer[hidden] {
-    display: block !important;
+#tab-select-bar {
+    text-align: center;
+}
+#tab-select-bar div {
+    display: inline-block;
 }
