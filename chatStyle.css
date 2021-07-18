@@ -1,13 +1,26 @@
 #chat-history{
-    height: 250px;
-    width: auto;
+    height: 0px;
+    background-color: var(--yt-spec-brand-background-primary);
 }
 #tab-select-bar > div {
     margin: 4px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 #tab-select-bar {
     text-align: center;
 }
 #tab-select-bar div {
     display: inline-block;
+}
+#close-button {
+    justify-content: center;
+    align-items: center;
+    float: right;
+    margin: 5px;
+    height: 18px;
+    width: 18px;
+    font-size: 15px;
+    color: var(--yt-live-chat-text-input-field-placeholder-color);
+    cursor: pointer;
 }
