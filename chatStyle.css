@@ -1,17 +1,20 @@
-#chat-history{
-    height: 0px;
-    background-color: var(--yt-spec-brand-background-primary);
+yt-live-chat-viewer-engagement-message-renderer {
+    display: none !important;
 }
-#tab-select-bar > div {
-    margin: 4px;
-    margin-top: 10px;
+div#input {
+    width: calc(100% - 26px);
+    margin-right: 0%;
+}
+svg#chat-history-icon {
+    fill: var(--yt-live-chat-picker-button-color);
+    float: right;
+    margin-top: 20px;
     cursor: pointer;
 }
-#tab-select-bar {
-    text-align: center;
-}
-#tab-select-bar div {
-    display: inline-block;
+#chat-history {
+    user-select: none;
+    height: 0px;
+    background-color: var(--yt-spec-brand-background-primary);
 }
 #close-button {
     justify-content: center;
@@ -23,4 +26,24 @@
     font-size: 15px;
     color: var(--yt-live-chat-text-input-field-placeholder-color);
     cursor: pointer;
+}
+#tab-select-bar {
+    text-align: center;
+}
+.tab-selecter {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 6px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.tab-selecter.active {
+    background: var();
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
 }
