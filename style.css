@@ -1,14 +1,11 @@
 yt-live-chat-viewer-engagement-message-renderer {
     display: none !important;
 }
-div#input {
-    width: calc(100% - 26px);
-    margin-right: 0%;
-}
 svg#chat-history-icon {
     fill: var(--yt-live-chat-picker-button-color);
     float: right;
-    margin-top: 20px;
+    margin-top: 24px;
+    margin-right: 2px;
     cursor: pointer;
 }
 #chat-history {
@@ -32,6 +29,7 @@ svg#chat-history-icon {
 }
 .tab-selecter {
     display: inline-block;
+    color: var(--yt-live-chat-tertiary-text-color);
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 6px;
@@ -39,7 +37,7 @@ svg#chat-history-icon {
     cursor: pointer;
 }
 .tab-selecter.active {
-    background: var();
+    color: var(--yt-spec-icon-active-other);
 }
 .tab-content {
     display: none;
