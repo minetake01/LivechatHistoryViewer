@@ -8,6 +8,9 @@ svg#chat-history-icon {
     margin-right: 2px;
     cursor: pointer;
 }
+svg#chat-history-icon.active {
+    fill: var(--yt-spec-icon-active-other);
+}
 #chat-history {
     user-select: none;
     height: 0px;
@@ -44,4 +47,9 @@ svg#chat-history-icon {
 }
 .tab-content.active {
     display: block;
+}
+.chat-select-field {
+    display: flex;
+    height: 100px;
+    width: 100%;
 }

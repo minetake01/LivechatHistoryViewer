@@ -8,9 +8,15 @@ var chatHistoryField = (function(param) {return param[0].replace(/\n|\r/g, "");}
 			<div id="global-chat-selecter" class="tab-selecter">グローバル</div>
 		</div>
 		<div id="tabs">
-			<div id="history-tab" class="tab-content active"></div>
-			<div id="channel-chat-tab" class="tab-content"></div>
-			<div id="global-chat-tab" class="tab-content"></div>
+			<div id="history-tab" class="tab-content active">
+				<div id="history" class="chat-select-field"></div>
+			</div>
+			<div id="channel-chat-tab" class="tab-content">
+				<div id="channel-chat" class="chat-select-field"></div>
+			</div>
+			<div id="global-chat-tab" class="tab-content">
+				<div id="global-chat" class="chat-select-field"></div>
+			</div>
 		</div>
 	</div>
 </div>`;
@@ -29,21 +35,26 @@ var closeButton = document.getElementById('close-button');
 var toggleIcon = false;
 icon.addEventListener('click', (event) => {
 	if (toggleIcon == false) {
-		$('#chat-history').animate({'height': '200px'}, 200, 'swing');
+		$('#chat-history').animate({'height': '150px'}, 200, 'swing');
+		$('svg#chat-history-icon').addClass('active');
 		toggleIcon = true;
 	} else {
 		$('#chat-history').animate({'height': '0px'}, 200, 'swing');
+		$('svg#chat-history-icon').removeClass('active');
 		toggleIcon = false;
 	}
 }, true);
 itemList.addEventListener('click', (event) => {
 	$('#chat-history').animate({'height': '0px'}, 200, 'swing');
+	$('svg#chat-history-icon').removeClass('active');
 });
 buttons.addEventListener('click', (event) => {
 	$('#chat-history').animate({'height': '0px'}, 200, 'swing');
+	$('svg#chat-history-icon').removeClass('active');
 });
 closeButton.addEventListener('click', (event) => {
 	$('#chat-history').animate({'height': '0px'}, 200, 'swing');
+	$('svg#chat-history-icon').removeClass('active');
 });
 
 $('#tab-select-bar div').click(function() {
