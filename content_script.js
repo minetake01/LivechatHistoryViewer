@@ -9,7 +9,15 @@ var chatHistoryField = (function(param) {return param[0].replace(/\n|\r/g, "");}
 		</div>
 		<div id="tabs">
 			<div id="history-tab" class="tab-content active">
-				<div id="history" class="chat-select-field"></div>
+				<div id="history" class="chat-select-field">
+					<div class="chat-selecter">草</div>
+					<div class="chat-selecter">こんにちは</div>
+					<div class="chat-selecter">:yt::buffering:</div>
+					<div class="chat-selecter">test</div>
+					<div class="chat-selecter">test</div>
+					<div class="chat-selecter">test</div>
+					<div class="chat-selecter">test</div>
+				</div>
 			</div>
 			<div id="channel-chat-tab" class="tab-content">
 				<div id="channel-chat" class="chat-select-field"></div>

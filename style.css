@@ -14,6 +14,7 @@ svg#chat-history-icon.active {
 #chat-history {
     user-select: none;
     height: 0px;
+    overflow: hidden;
     background-color: var(--yt-spec-brand-background-primary);
 }
 #close-button {
@@ -49,7 +50,16 @@ svg#chat-history-icon.active {
     display: block;
 }
 .chat-select-field {
-    display: flex;
+    overflow-y: scroll;
     height: 100px;
     width: 100%;
+}
+.chat-selecter {
+    font-size: 13px;
+    padding: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 20px;
+    margin-right: 16px;
+    cursor: pointer;
 }
