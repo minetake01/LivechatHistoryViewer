@@ -3,20 +3,14 @@ var chatHistoryField = (function(param) {return param[0].replace(/\n|\r/g, "");}
 	<div id="history-panel" class="style-scope yt-live-chat-renderer">
 		<div id="close-button">×</div>
 		<div id="tab-select-bar">
-			<div id="history-selecter" class="tab-selecter active">チャットの履歴</div>
-			<div id="channel-chat-selecter" class="tab-selecter">チャンネル</div>
-			<div id="global-chat-selecter" class="tab-selecter">グローバル</div>
+			<div id="history-selector" class="tab-selector active">チャットの履歴</div>
+			<div id="channel-chat-selector" class="tab-selector">チャンネル</div>
+			<div id="global-chat-selector" class="tab-selector">グローバル</div>
 		</div>
 		<div id="tabs">
 			<div id="history-tab" class="tab-content active">
 				<div id="history" class="chat-select-field">
-					<div class="chat-selecter">草</div>
-					<div class="chat-selecter">こんにちは</div>
-					<div class="chat-selecter">:yt::buffering:</div>
-					<div class="chat-selecter">test</div>
-					<div class="chat-selecter">test</div>
-					<div class="chat-selecter">test</div>
-					<div class="chat-selecter">test</div>
+					<div class="chat-selector"></div>
 				</div>
 			</div>
 			<div id="channel-chat-tab" class="tab-content">
@@ -72,4 +66,30 @@ $('#tab-select-bar div').click(function() {
 
 	$('.tab-content').removeClass('active');
 	$('.tab-content').eq(index).addClass('active');
+});
+
+
+
+$('yt-icon-button#button').click((event) => {
+	var history = $('div#input').html();
+	var chatHistoryData = {
+		history1: history
+	};
+	chrome.storage.sync.set(chatHistoryData);
+
+	$('.chat-selector').html(history);
+});
+
+$('#history > .chat-selector').click((event) => {
+	chrome.storage.sync.get("history1", function (value) {
+		var sendMessage = value.history1;
+		
+		var inputElement = document.querySelector('#input.yt-live-chat-text-input-field-renderer');
+		var sendButtonElement = document.querySelector('#send-button yt-icon-button');
+		
+		inputElement.innerHTML += sendMessage;
+
+		inputElement.dispatchEvent(new InputEvent('input'));
+		sendButtonElement.click();
+	});
 });

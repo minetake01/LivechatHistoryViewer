@@ -31,7 +31,7 @@ svg#chat-history-icon.active {
 #tab-select-bar {
     text-align: center;
 }
-.tab-selecter {
+.tab-selector {
     display: inline-block;
     color: var(--yt-live-chat-tertiary-text-color);
     margin-top: 10px;
@@ -40,7 +40,7 @@ svg#chat-history-icon.active {
     margin-left: 6px;
     cursor: pointer;
 }
-.tab-selecter.active {
+.tab-selector.active {
     color: var(--yt-spec-icon-active-other);
 }
 .tab-content {
@@ -54,7 +54,7 @@ svg#chat-history-icon.active {
     height: 100px;
     width: 100%;
 }
-.chat-selecter {
+.chat-selector {
     font-size: 13px;
     padding: 4px;
     margin-top: 4px;
