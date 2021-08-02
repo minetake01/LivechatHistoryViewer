@@ -75,13 +75,27 @@ $('#tab-select-bar div').click(function() {
 });
 
 
+if (window == window.parent) {
+	var livechatType = 'popup'
+	var streamID = location.search.replace('is_popout=1&', '').replace('?v=', '');
+} else {
+	var livechatType = 'iframe'
+	var streamID = location.search.replace('?continuation=', '');
+};
+//送信したチャットの要素を取得
 $('yt-icon-button#button').click((event) => {
-	var input = $('div#input').html();
-	chrome.runtime.sendMessage(input);
+	const inputElement = $('div#input').html();
 
-	$('.chat-selector').html(input);
+	chrome.runtime.sendMessage({
+		livechatType: livechatType,
+		streamID: streamID,
+		inputElement: inputElement
+	});
+
+	$('.chat-selector').html(inputElement);
 });
 
+//チャット履歴をクリックで送信
 $('#history > .chat-selector').click((event) => {
 	chrome.storage.sync.get("history1", function (value) {
 		var sendMessage = value.history1;
