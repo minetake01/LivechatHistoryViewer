@@ -3,9 +3,10 @@ yt-live-chat-viewer-engagement-message-renderer {
 }
 svg#chat-history-icon {
     fill: var(--yt-live-chat-picker-button-color);
-    float: right;
-    margin-top: 24px;
+    margin-top: auto;
+    margin-bottom: 2px;
     margin-right: 2px;
+    margin-left: 3px;
     cursor: pointer;
 }
 svg#chat-history-icon.active {

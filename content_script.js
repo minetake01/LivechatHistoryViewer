@@ -4,6 +4,7 @@ var chatHistoryField = (function(param) {return param[0].replace(/\n|\r/g, "");}
 		<div id="close-button">×</div>
 		<div id="tab-select-bar">
 			<div id="history-selector" class="tab-selector active">チャットの履歴</div>
+			<div id="game-chat-selector" class="tab-selector">ゲーム</div>
 			<div id="channel-chat-selector" class="tab-selector">チャンネル</div>
 			<div id="global-chat-selector" class="tab-selector">グローバル</div>
 		</div>
@@ -12,6 +13,9 @@ var chatHistoryField = (function(param) {return param[0].replace(/\n|\r/g, "");}
 				<div id="history" class="chat-select-field">
 					<div class="chat-selector"></div>
 				</div>
+			</div>
+			<div id="game-chat-tab" class="tab-content">
+				<div id="history" class="chat-select-field"></div>
 			</div>
 			<div id="channel-chat-tab" class="tab-content">
 				<div id="channel-chat" class="chat-select-field"></div>
@@ -34,6 +38,7 @@ var itemList = document.getElementById('item-list');
 var buttons = document.getElementById('buttons');
 var closeButton = document.getElementById('close-button');
 
+//UI開く/閉じる
 var toggleIcon = false;
 icon.addEventListener('click', (event) => {
 	if (toggleIcon == false) {
@@ -59,6 +64,7 @@ closeButton.addEventListener('click', (event) => {
 	$('svg#chat-history-icon').removeClass('active');
 });
 
+//タブ切り替え
 $('#tab-select-bar div').click(function() {
 	$('#tab-select-bar div').removeClass('active');
 	$(this).addClass('active');
@@ -69,15 +75,11 @@ $('#tab-select-bar div').click(function() {
 });
 
 
-
 $('yt-icon-button#button').click((event) => {
-	var history = $('div#input').html();
-	var chatHistoryData = {
-		history1: history
-	};
-	chrome.storage.sync.set(chatHistoryData);
+	var input = $('div#input').html();
+	chrome.runtime.sendMessage(input);
 
-	$('.chat-selector').html(history);
+	$('.chat-selector').html(input);
 });
 
 $('#history > .chat-selector').click((event) => {
