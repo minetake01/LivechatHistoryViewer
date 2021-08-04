@@ -10,12 +10,10 @@ var chatHistoryField = (function(param) {return param[0].replace(/\n|\r/g, "");}
 		</div>
 		<div id="tabs">
 			<div id="history-tab" class="tab-content active">
-				<div id="history" class="chat-select-field">
-					<div class="chat-selector"></div>
-				</div>
+				<div id="history" class="chat-select-field"></div>
 			</div>
 			<div id="game-chat-tab" class="tab-content">
-				<div id="history" class="chat-select-field"></div>
+				<div id="game-chat" class="chat-select-field"></div>
 			</div>
 			<div id="channel-chat-tab" class="tab-content">
 				<div id="channel-chat" class="chat-select-field"></div>
@@ -49,7 +47,7 @@ icon.addEventListener('click', (event) => {
 		$('#chat-history').animate({'height': '0px'}, 200, 'swing');
 		$('svg#chat-history-icon').removeClass('active');
 		toggleIcon = false;
-	}
+	};
 }, true);
 itemList.addEventListener('click', (event) => {
 	$('#chat-history').animate({'height': '0px'}, 200, 'swing');
@@ -74,7 +72,7 @@ $('#tab-select-bar div').click(function() {
 	$('.tab-content').eq(index).addClass('active');
 });
 
-
+//iframeかポップアップか判定
 if (window == window.parent) {
 	var livechatType = 'popup'
 	var streamID = location.search.replace('is_popout=1&', '').replace('?v=', '');
@@ -83,8 +81,8 @@ if (window == window.parent) {
 	var streamID = location.search.replace('?continuation=', '');
 };
 //送信したチャットの要素を取得
-$('yt-icon-button#button').click((event) => {
-	const inputElement = $('div#input').html();
+$('yt-icon-button#button').mousedown((event) => {
+	var inputElement = $('div#input').html();
 
 	chrome.runtime.sendMessage({
 		livechatType: livechatType,
@@ -92,20 +90,30 @@ $('yt-icon-button#button').click((event) => {
 		inputElement: inputElement
 	});
 
-	$('.chat-selector').html(inputElement);
+	$('#history.chat-select-field').prepend('<div class="chat-selector">' + inputElement + '</div>');
+});
+$('div.style-scope yt-live-chat-text-input-field-renderer').keydown((event) => {
+	if (event.key === 'Enter'){
+		var inputElement = $('div#input').html();
+
+		chrome.runtime.sendMessage({
+			livechatType: livechatType,
+			streamID: streamID,
+			inputElement: inputElement
+		});
+
+		$('#history.chat-select-field').prepend('<div class="chat-selector">' + inputElement + '</div>');
+	};
 });
 
 //チャット履歴をクリックで送信
-$('#history > .chat-selector').click((event) => {
-	chrome.storage.sync.get("history1", function (value) {
-		var sendMessage = value.history1;
-		
-		var inputElement = document.querySelector('#input.yt-live-chat-text-input-field-renderer');
-		var sendButtonElement = document.querySelector('#send-button yt-icon-button');
-		
-		inputElement.innerHTML += sendMessage;
+$('div#history').on('click', '.chat-selector', (event) => {
+	var sendMessage = $(event.target).html();
+	var inputElement = document.querySelector('#input.yt-live-chat-text-input-field-renderer');
+	var sendButtonElement = document.querySelector('#send-button yt-icon-button');
+	
+	inputElement.innerHTML += sendMessage;
 
-		inputElement.dispatchEvent(new InputEvent('input'));
-		sendButtonElement.click();
-	});
+	inputElement.dispatchEvent(new InputEvent('input'));
+	sendButtonElement.click();
 });

@@ -20,7 +20,7 @@
 		},
 		{
 			"matches": ["https://www.youtube.com/*"],
-			"exclude_globs": ["*://*/*live_chat*"],
+			"include_globs": ["*://*/*watch*"],
 			"js": ["jquery-3.6.0.min.js", "streamDetail_getter.js"]
 		}
 	],
