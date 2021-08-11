@@ -1,9 +1,32 @@
-chrome.runtime.onMessage.addListener(function (input, sender) {
-    console.log(sender);    //送信者の情報
-    console.log(input.livechatType);    //チャットページがポップアップされているかiframeか
-    console.log(input.inputElement);    //送信したチャットの要素
-    console.log(input.streamID);    //配信ID
-    console.log(input.livechatID);  //チャットID
-    console.log(input.channelID);   //チャンネルID
-    console.log(input.gameChannelID);   //ゲームチャンネルID
-});
+(function main() {
+    chrome.runtime.onMessage.addListener(function (input) {
+        console.log(input.livechatType);    //チャットページがポップアップされているかiframeか
+        console.log(input.chatElement);    //送信したチャットの要素
+        console.log(input.streamID);    //配信ID
+        console.log(input.livechatID);  //チャットID
+        console.log(input.channelID);   //チャンネルID
+        console.log(input.gameChannelID);   //ゲームチャンネルID
+        
+        history(input.chatElement);
+    });
+})();
+
+//履歴データをストレージに保存
+let historyArray = [];
+function history(chatElement) {
+    var maxMemHistory = 10
+
+    try {
+        chrome.storage.sync.get({historyArray: []}, function(value) {
+            historyArray = value.historyArray;
+
+            historyArray.unshift(chatElement);
+            historyArray.length = maxMemHistory;
+            
+            console.log(historyArray);
+            chrome.storage.sync.set({'historyArray': historyArray});
+        });
+    } catch (e) {
+        console.log(e);
+    };
+};

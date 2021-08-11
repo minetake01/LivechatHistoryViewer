@@ -1,3 +1,37 @@
+#clickBlock {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    user-select: none;
+}
+#spamBlockField {
+    background: var(--yt-spec-brand-background-primary);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 300px;
+    height: 180px;
+    margin: auto;
+}
+#spamBlockMessage {
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    font-size: 16px;
+    margin: 8px;
+    margin-top: 32px;
+    text-align: center;
+}
+#spamBlockMessage2 {
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    font-size: 15px;
+    margin: 8px;
+    opacity: 0.8;
+}
 yt-live-chat-viewer-engagement-message-renderer {
     display: none !important;
 }
@@ -17,6 +51,10 @@ svg#chat-history-icon.active {
     height: 0px;
     overflow: hidden;
     background-color: var(--yt-spec-brand-background-primary);
+    transition: height 200ms 0s ease;
+}
+#chat-history.opened {
+    height: 150px;
 }
 #close-button {
     justify-content: center;
