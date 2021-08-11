@@ -113,4 +113,5 @@ svg#chat-history-icon.active {
     height: var(--yt-live-chat-emoji-size);
     margin: -1px 2px 1px;
     vertical-align: middle;
+    pointer-events: none;
 }

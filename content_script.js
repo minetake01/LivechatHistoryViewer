@@ -87,8 +87,9 @@
 	$('div#history').on('click', '.chat-selector', function(event) {
 		spamBlock();
 		let sendMessage = $(event.target).html();
+		console.log(sendMessage);
 		$('#input.yt-live-chat-text-input-field-renderer').html(sendMessage);
-		$('#input.yt-live-chat-text-input-field-renderer').trigger('input');
+		document.querySelector('#input.yt-live-chat-text-input-field-renderer').dispatchEvent(new InputEvent('input'));
 		$('#send-button yt-icon-button').click();
 	});
 })();
@@ -107,7 +108,7 @@ function getStorageData() {
 	chrome.storage.sync.get({historyArray: []}, function(value) {
 		historyArray = value.historyArray;
 		historyArray.forEach(function(item) {
-			$('#history.chat-select-field').append('<div class="chat-seletor">' + item + '</div>');
+			$('#history.chat-select-field').append('<div class="chat-selector">' + item + '</div>');
 		});
 	});
 };
@@ -135,7 +136,6 @@ function toBackground(message) {
 let clicktime = 0
 function spamBlock() {
 	clicktime += 1
-	console.log(clicktime);
 	if (clicktime == 1) {
 		setTimeout(function(){clicktime = 0}, 60000)
 	} else if (clicktime >= 6) {
