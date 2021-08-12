@@ -87,10 +87,12 @@
 	$('div#history').on('click', '.chat-selector', function(event) {
 		spamBlock();
 		let sendMessage = $(event.target).html();
-		console.log(sendMessage);
+		if ($('#input.yt-live-chat-text-input-field-renderer').html() === sendMessage) {
+			$('#send-button yt-icon-button').click();
+		} else {
 		$('#input.yt-live-chat-text-input-field-renderer').html(sendMessage);
 		document.querySelector('#input.yt-live-chat-text-input-field-renderer').dispatchEvent(new InputEvent('input'));
-		$('#send-button yt-icon-button').click();
+		};
 	});
 })();
 
@@ -137,10 +139,9 @@ let clicktime = 0
 function spamBlock() {
 	clicktime += 1
 	if (clicktime == 1) {
-		setTimeout(function(){clicktime = 0}, 60000)
+		setTimeout(function(){clicktime = 0}, 60000);
 	} else if (clicktime >= 6) {
 		$('#clickBlock').removeAttr('hidden');
-		$('#clickBlock').click();
-		setTimeout(function(){$('#clickBlock').prop('hidden', true)}, 60000)
+		setTimeout(function(){$('#clickBlock').prop('hidden', true)}, 60000);
 	};
 };

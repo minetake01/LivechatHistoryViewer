@@ -20,10 +20,15 @@ function history(chatElement) {
         chrome.storage.sync.get({historyArray: []}, function(value) {
             historyArray = value.historyArray;
 
+            historyArray.forEach(function(history, index) {
+                if (history === chatElement) {
+                    historyArray.splice(index);
+                };
+            });
             historyArray.unshift(chatElement);
-            historyArray.length = maxMemHistory;
-            
-            console.log(historyArray);
+            if (historyArray.length > maxMemHistory) {
+                historyArray.length = maxMemHistory;
+            };
             chrome.storage.sync.set({'historyArray': historyArray});
         });
     } catch (e) {
