@@ -68,7 +68,7 @@
 
 //送信したチャットを取得
 (function getChat() {
-	$('#send-button yt-icon-button#button').mousedown(function() {
+	$('#send-button yt-icon-button#button').click(function() {
 		if ($('div#input').html() != "") {
 			spamBlock();
 			toBackground($('div#input').html());
@@ -84,8 +84,7 @@
 
 //チャット送信
 (function sendChat() {
-	$('div#history').on('click', '.chat-selector', function(event) {
-		spamBlock();
+	$('div#history').on('click', '#item.chat-selector', function(event) {
 		let sendMessage = $(event.target).html();
 		if ($('#input.yt-live-chat-text-input-field-renderer').html() === sendMessage) {
 			$('#send-button yt-icon-button').click();
@@ -98,19 +97,28 @@
 
 //チャット追加
 (function addChat() {
-	getStorageData();
+	getStorageData('#history.chat-select-field');
 	chrome.storage.onChanged.addListener(function() {
-		getStorageData();
+		getStorageData('#history.chat-select-field');
 	});
 })();
 
 //ストレージからデータ取得
-function getStorageData() {
-	$('#history.chat-select-field').empty();
+let itemElement;
+function getStorageData(target) {
+	$(target).empty();
 	chrome.storage.sync.get({historyArray: []}, function(value) {
 		historyArray = value.historyArray;
 		historyArray.forEach(function(item) {
-			$('#history.chat-select-field').append('<div class="chat-selector">' + item + '</div>');
+			itemElement = (function(param) {return param[0].replace(/\n|\r/g, "");})`
+				<div class="chat-selector">
+					<div id="item" class="chat-selector">` + item + `</div>
+					<div id="menu" class="chat-selector">
+						<svg version="1.1" id="menu" class="chat-selector" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 512 512" style="width:16px;height:16px" xml:space="preserve"><g><circle cx="256" cy="55.091" r="55.091"/><circle cx="256" cy="256" r="55.091"/><circle cx="256" cy="456.909" r="55.091"/></g></svg>
+					</div>
+				</div>
+			`;
+			$(target).append(itemElement);
 		});
 	});
 };

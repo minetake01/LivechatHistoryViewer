@@ -94,6 +94,18 @@ svg#chat-history-icon.active {
     width: 100%;
 }
 .chat-selector {
+    display: flex;
+}
+div#menu.chat-selector {
+    height: 24px;
+    width: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 4px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+#item.chat-selector {
     color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
     line-height: 16px;
     overflow: hidden;
@@ -101,12 +113,16 @@ svg#chat-history-icon.active {
     word-break: break-word;
     font-style: var(--yt-live-chat-text-message-renderer-message-message-style_-_font-style);
     font-size: 13px;
+    width: 100%;
     padding: 4px;
     margin-top: 4px;
     margin-bottom: 4px;
     margin-left: 20px;
-    margin-right: 16px;
+    margin-right: 8px;
     cursor: pointer;
+}
+svg#menu.chat-selector {
+    fill: var(--yt-spec-icon-active-other);
 }
 .emoji.yt-live-chat-text-input-field-renderer {
     width: var(--yt-live-chat-emoji-size);

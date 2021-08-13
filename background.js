@@ -22,7 +22,7 @@ function history(chatElement) {
 
             historyArray.forEach(function(history, index) {
                 if (history === chatElement) {
-                    historyArray.splice(index);
+                    historyArray.splice(index, 1);
                 };
             });
             historyArray.unshift(chatElement);
