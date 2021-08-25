@@ -1,14 +1,26 @@
 (function main() {
-    chrome.runtime.onMessage.addListener(function (input) {
-        console.log(input.livechatType);    //チャットページがポップアップされているかiframeか
-        console.log(input.chatElement);    //送信したチャットの要素
-        console.log(input.streamID);    //配信ID
-        console.log(input.livechatID);  //チャットID
-        console.log(input.channelID);   //チャンネルID
-        console.log(input.gameChannelID);   //ゲームチャンネルID
-        
-        history(input.chatElement);
-    });
+    chrome.runtime.onConnect.addListener(function (port) {
+        port.onMessage.addListener(function(input) {
+            console.log('category     = ' + input.category); //登録するカテゴリ
+            console.log('chatElement  = ' + input.chatElement);    //送信したチャットの要素
+            console.log('streamID     = ' + input.streamID);    //配信ID
+            
+            history(input.chatElement);
+
+            getChannelID(input.streamID).then(function(result) {
+                console.log(result);
+            });
+
+            switch (input.category) {
+                case 'channel':
+
+                break;
+                case 'global':
+
+                break;
+            };
+        });
+    })
 })();
 
 //履歴データをストレージに保存
@@ -34,4 +46,33 @@ function history(chatElement) {
     } catch (e) {
         console.log(e);
     };
+};
+
+//チャットを登録
+function entryChat(category, chatElement) {
+
+};
+
+async function getChannelID(streamID) {
+    function msgListener(streamID) {
+        return new Promise(resolve => {
+            chrome.tabs.query({url: 'https://www.youtube.com/watch*'}, function(tabs) {
+                tabs.forEach(function(tab){
+                    let toGetterPort = chrome.tabs.connect(tab.id);
+                    toGetterPort.postMessage({getStreamDetail: 'get'});
+                    
+                    toGetterPort.onMessage.addListener(function(response) {
+                        if (streamID === response.getter_streamID || streamID === response.getter_livechatID) {
+                            resolve(response.getter_channelID);
+                        } else {
+                            resolve(false);
+                        };
+                    });
+                });
+            });
+        });
+    };
+    let result = await msgListener(streamID);
+
+    return result;
 };

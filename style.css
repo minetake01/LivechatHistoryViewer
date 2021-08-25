@@ -1,10 +1,13 @@
+yt-live-chat-viewer-engagement-message-renderer {
+    display: none !important;
+}
 #clickBlock {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 100;
     user-select: none;
 }
@@ -31,9 +34,6 @@
     font-size: 15px;
     margin: 8px;
     opacity: 0.8;
-}
-yt-live-chat-viewer-engagement-message-renderer {
-    display: none !important;
 }
 svg#chat-history-icon {
     fill: var(--yt-live-chat-picker-button-color);
@@ -96,15 +96,6 @@ svg#chat-history-icon.active {
 .chat-selector {
     display: flex;
 }
-div#menu.chat-selector {
-    height: 24px;
-    width: 24px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 4px;
-    margin-left: 4px;
-    cursor: pointer;
-}
 #item.chat-selector {
     color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
     line-height: 16px;
@@ -121,8 +112,17 @@ div#menu.chat-selector {
     margin-right: 8px;
     cursor: pointer;
 }
-svg#menu.chat-selector {
+div#menu-icon.chat-selector {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 8px;
+    margin-left: 4px;
+    position: relative;
+    cursor: pointer;
+}
+svg#menu-icon.chat-selector {
     fill: var(--yt-spec-icon-active-other);
+    pointer-events: none;
 }
 .emoji.yt-live-chat-text-input-field-renderer {
     width: var(--yt-live-chat-emoji-size);
@@ -130,4 +130,125 @@ svg#menu.chat-selector {
     margin: -1px 2px 1px;
     vertical-align: middle;
     pointer-events: none;
+}
+#menu-panel {
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    right: 50px;
+    background-color: var(--yt-spec-brand-background-primary);
+    height: 88px;
+    width: 148px;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 5);
+}
+#menu-panel.opened {
+    display: block;
+    z-index: 100;
+}
+.menu-icon {
+    fill: var(--yt-live-chat-picker-button-color);
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 4px;
+    margin-left: 8px;
+}
+p.menu {
+    margin: auto;
+    margin-left: 8px;
+}
+.menu-selector {
+    display: flex;
+    margin: 4px;
+    height: 36px;
+    width: 100%;
+    cursor: pointer;
+}
+#category-select-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    user-select: none;
+}
+#category-select-field {
+    background: var(--yt-spec-brand-background-primary);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 200px;
+    height: 180px;
+    margin: auto;
+}
+#category-selector-headder {
+    height: 60px;
+    width: auto;
+}
+#category-select.category-selector-headder {
+    position: absolute;
+    font-size: 18px;
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    margin: 18px;
+    margin-left: 20px;
+}
+#category-selector-checkbox > label{
+    display: block;
+    font-size: 15px;
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    margin: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+input[type=checkbox] {
+    display: none;
+}
+label.category-selector-input {
+    display: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+    padding-left: 50px;
+    position: relative;
+    width: auto;
+}
+label.category-selector-input::before {
+    background: var(--yt-spec-brand-background-primary);
+    border: 2px solid var(--yt-live-chat-picker-button-color);
+    border-radius: 2px;
+    content: '';
+    display: block;
+    height: 16px;
+    width: 16px;
+    top: 16px;
+    left: 14px;
+    margin-top: -10px;
+    position: absolute;
+    transition: background 150ms 0s ease;
+    transition: border 130ms 0s ease;
+}
+label.category-selector-input::after {
+    border-right: 2px solid var(--yt-spec-brand-background-primary);
+    border-bottom: 2px solid var(--yt-spec-brand-background-primary);
+    content: '';
+    display: block;
+    height: 11px;
+    width: 5px;
+    margin-top: -7px;
+    opacity: 0;
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    transform: rotate(45deg);
+}
+input[type=checkbox]:checked + label.category-selector-input::after {
+    opacity: 1;
+}
+input[type=checkbox]:checked + label.category-selector-input::before {
+    background: var(--paper-checkbox-checked-color);
+    border-color: var(--paper-checkbox-checked-color);
 }
