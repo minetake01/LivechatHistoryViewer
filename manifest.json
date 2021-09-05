@@ -1,8 +1,11 @@
 {
 	"manifest_version": 3,
-	"name": "YoutubeLiveChat＋",
-	"version": "0.0.3",
-	"description": "Youtubeのチャットを見やすくします。",
+	"name": "LivechatHistoryViewer",
+	"version_name": "beta",
+	"version": "1.0.0",
+	"description": "__MSG_extensionDescription__",
+	"author": "__MSG_extensionAuthor__",
+	"default_locale": "en",
 	//"icons": {
     	//"16": "icon/icon16.png",
     	//"48": "icon/icon48.png",
@@ -18,7 +21,7 @@
 			"include_globs": ["*://*/*live_chat*"],
 			"all_frames": true,
 			"run_at": "document_end",
-			"js": ["jquery-3.6.0.min.js", "content_script.js"],
+			"js": ["jquery-3.6.0.min.js", "lib.js", "content_script.js"],
 			"css": ["style.css"]
 		},
 		{

@@ -1,0 +1,32 @@
+{
+	"extensionDescription": {
+		"message": "YouTubeライブチャットで送信したチャットの履歴を見る機能を追加します。"
+	},
+	"extensionAuthor": {
+		"message": "みねたけ"
+	},
+	"UI_History": {
+		"message": "チャットの履歴"
+	},
+	"UI_Channel": {
+		"message": "チャンネル"
+	},
+	"UI_Global": {
+		"message": "グローバル"
+	},
+	"menu_register": {
+		"message": "登録する"
+	},
+	"menu_delete": {
+		"message": "削除"
+	},
+	"registerUI_header": {
+		"message": "登録先…"
+	},
+	"caution_header": {
+		"message": "チャットの連投を検知しました。"
+	},
+	"caution_message": {
+		"message": "短時間で大量のチャットを送信する行為は、配信者の方や他の視聴者の方に迷惑になる場合があります。"
+	}
+}

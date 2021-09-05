@@ -1,0 +1,32 @@
+{
+	"extensionDescription": {
+		"message": "Add the ability to view the history of chats sent on YouTube Live Chat."
+	},
+	"extensionAuthor": {
+		"message": "Minetake"
+	},
+	"UI_History": {
+		"message": "history"
+	},
+	"UI_Channel": {
+		"message": "channel"
+	},
+	"UI_Global": {
+		"message": "global"
+	},
+	"menu_register": {
+		"message": "Register"
+	},
+	"menu_delete": {
+		"message": "Delete"
+	},
+	"registerUI_header": {
+		"message": "Register to…"
+	},
+	"caution_header": {
+		"message": "Detected continuous chat."
+	},
+	"caution_message": {
+		"message": "Sending a large number of chats in a short period of time can be annoying to the broadcaster and other viewers."
+	}
+}
