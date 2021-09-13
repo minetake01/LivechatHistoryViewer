@@ -76,10 +76,10 @@
         };
     });
 
-    $('#channel-checkbox.live-chat-history-category-dialog').change(function(event) {
+    $('#channel-checkbox.live-chat-history-category-dialog').click(function(event) {
         if ($(event.target).prop('checked')) {
-            let messageArray = {};
             channelID(streamID()).then(function(channelID) {
+                let messageArray = {};
                 messageArray.type = 'entryChannel';
                 messageArray.channelID = channelID;
                 messageArray.chatElement = currentContent;
@@ -87,8 +87,8 @@
                 sendBackground(messageArray);
             });
         } else {
-            let messageArray = {};
             channelID(streamID()).then(function(channelID) {
+                let messageArray = {};
                 messageArray.type = 'deleteChannel';
                 messageArray.channelID = channelID;
                 messageArray.chatElement = currentContent;
@@ -97,7 +97,7 @@
             });
         };
     });
-    $('#global-checkbox.live-chat-history-category-dialog').change(function(event) {
+    $('#global-checkbox.live-chat-history-category-dialog').click(function(event) {
         if ($(event.target).prop('checked')) {
             let messageArray = {};
             messageArray.type = 'entryGlobal';
@@ -120,8 +120,8 @@
 
             sendBackground(messageArray);
         } else if ($(event.target).closest('#channel-tab-content').length) {
-            let messageArray = {};
             channelID(streamID()).then(function(channelID) {
+                let messageArray = {};
                 messageArray.type = 'deleteChannel';
                 messageArray.channelID = channelID;
                 messageArray.chatElement = currentContent;

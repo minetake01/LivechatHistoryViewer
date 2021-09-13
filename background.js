@@ -10,19 +10,17 @@ let maxMemHistory = 10;
             console.log(event);
             switch (event.type) {
                 case 'sendChat':
-                    chrome.storage.sync.get({historyArray: []}, function(value) {
+                    chrome.storage.local.get({historyArray: []}, function(value) {
                         historyArray = value.historyArray;
-
-                        historyArray.forEach(function(history, index) {
-                            if (history === event.chatElement) {
-                                historyArray.splice(index, 1);
-                            };
-                        });
+                        let index = historyArray.indexOf(event.chatElement);
+                        if (index > -1) {
+                            historyArray.splice(index, 1);
+                        };
                         historyArray.unshift(event.chatElement);
                         if (historyArray.length > maxMemHistory) {
                             historyArray.length = maxMemHistory;
                         };
-                        chrome.storage.sync.set({'historyArray': historyArray});
+                        chrome.storage.local.set({'historyArray': historyArray});
                     });
                 break;
                 case 'getChannelID':
@@ -34,47 +32,47 @@ let maxMemHistory = 10;
                     });
                 break;
                 case 'entryChannel':
-                    chrome.storage.sync.get({[event.channelID]: []}, function(value) {
+                    chrome.storage.local.get({[event.channelID]: []}, function(value) {
                         channelArray = value[event.channelID];
                         channelArray.unshift(event.chatElement);
-                        chrome.storage.sync.set({[event.channelID]: channelArray});
+                        chrome.storage.local.set({[event.channelID]: channelArray});
                     });
                 break;
                 case 'entryGlobal':
-                    chrome.storage.sync.get({globalArray: []}, function(value) {
+                    chrome.storage.local.get({globalArray: []}, function(value) {
                         globalArray = value.globalArray;
                         globalArray.unshift(event.chatElement);
-                        chrome.storage.sync.set({globalArray: globalArray});
+                        chrome.storage.local.set({globalArray: globalArray});
                     });
                 break;
                 case 'deleteHistory':
-                    chrome.storage.sync.get({historyArray: []}, function(value) {
+                    chrome.storage.local.get({historyArray: []}, function(value) {
                         historyArray = value.historyArray;
                         let index  = historyArray.indexOf(event.chatElement);
                         if (index > -1) {
                             historyArray.splice(index, 1);
                         };
-                        chrome.storage.sync.set({historyArray: historyArray});
+                        chrome.storage.local.set({historyArray: historyArray});
                     });
                 break;
                 case 'deleteChannel':
-                    chrome.storage.sync.get({[event.channelID]: []}, function(value) {
+                    chrome.storage.local.get({[event.channelID]: []}, function(value) {
                         channelArray = value[event.channelID];
                         let index  = channelArray.indexOf(event.chatElement);
                         if (index > -1) {
                             channelArray.splice(index, 1);
                         };
-                        chrome.storage.sync.set({[event.channelID]: channelArray});
+                        chrome.storage.local.set({[event.channelID]: channelArray});
                     });
                 break;
                 case 'deleteGlobal':
-                    chrome.storage.sync.get({globalArray: []}, function(value) {
+                    chrome.storage.local.get({globalArray: []}, function(value) {
                         globalArray = value.globalArray;
                         let index  = globalArray.indexOf(event.chatElement);
                         if (index > -1) {
                             globalArray.splice(index, 1);
                         };
-                        chrome.storage.sync.set({globalArray: globalArray});
+                        chrome.storage.local.set({globalArray: globalArray});
                     });
                 break;
             };

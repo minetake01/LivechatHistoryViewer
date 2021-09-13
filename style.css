@@ -40,6 +40,7 @@ yt-live-chat-viewer-engagement-message-renderer {
 #chat-content.live-chat-history-menu {
     display: flex;
     position: relative;
+    height: calc(100% / 3);
 }
 #content.live-chat-history-menu {
     color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));

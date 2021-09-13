@@ -123,26 +123,25 @@ function channelID(streamID) {
 
     return new Promise(resolve => {
         let port = chrome.runtime.connect();
+        port.postMessage(messageArray);
         port.onMessage.addListener(function(response) {
             if (response.type === 'responseChannelID') {
                 resolve(response.channelID);
             };
         });
-        
-        port.postMessage(messageArray);
     });
 };
 
 function updateContents(channelIDPromise) {
     $('#history-content').empty();
-    chrome.storage.sync.get({historyArray: []}, function(value) {
+    chrome.storage.local.get({historyArray: []}, function(value) {
         historyArray = value.historyArray;
         historyArray.forEach(function(item) {
             $('#history-content').append(contentElement(item, 'history'));
         });
     });
     $('#global-content').empty();
-    chrome.storage.sync.get({globalArray: []}, function(value) {
+    chrome.storage.local.get({globalArray: []}, function(value) {
         globalArray = value.globalArray;
         globalArray.forEach(function(item) {
             $('#global-content').append(contentElement(item));
@@ -150,7 +149,7 @@ function updateContents(channelIDPromise) {
     });
     channelIDPromise.then(function(channelID) {
         $('#channel-content').empty();
-        chrome.storage.sync.get({[channelID]: []}, function(value) {
+        chrome.storage.local.get({[channelID]: []}, function(value) {
             channelArray = value[channelID];
             channelArray.forEach(function(item) {
                 $('#channel-content').append(contentElement(item));
@@ -161,16 +160,15 @@ function updateContents(channelIDPromise) {
 
 function contentCheck(channelIDPromise, chatElement) {
     channelIDPromise.then(function(channelID) {
-        chrome.storage.sync.get({[channelID]: []}, function(value) {
+        chrome.storage.local.get({[channelID]: []}, function(value) {
             channelArray = value[channelID];
             if ($.inArray(chatElement, channelArray) !== -1) {
                 $('#channel-checkbox.live-chat-history-category-dialog').prop('checked', true);
             };
         });
     });
-    chrome.storage.sync.get({globalArray: []}, function(value) {
+    chrome.storage.local.get({globalArray: []}, function(value) {
         globalArray = value.globalArray;
-        console.log(globalArray)
         if ($.inArray(chatElement, globalArray) !== -1) {
             $('#global-checkbox.live-chat-history-category-dialog').prop('checked', true);
         };
