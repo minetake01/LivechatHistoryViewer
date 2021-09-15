@@ -37,12 +37,12 @@ yt-live-chat-viewer-engagement-message-renderer {
     overflow-y: scroll;
     height: 100px;
 }
-#chat-content.live-chat-history-menu {
+#chat-content.live-chat-history-content {
     display: flex;
     position: relative;
     height: calc(100% / 3);
 }
-#content.live-chat-history-menu {
+#content.live-chat-history-content {
     color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
     line-height: 16px;
     overflow: hidden;
@@ -62,29 +62,24 @@ yt-live-chat-viewer-engagement-message-renderer {
     vertical-align: middle;
     pointer-events: none;
 }
-#content-menu-icon.live-chat-history-menu {
+#content-menu-icon.live-chat-history-content {
     display: inline-block;
     color: var(--yt-live-chat-secondary-text-color);
     margin: 4px 8px 4px 4px;
     cursor: pointer;
 }
-#menu-icon.live-chat-history-menu {
+#menu-icon.live-chat-history-content {
     pointer-events: none;
 }
 #menu-panel.live-chat-history-menu {
-    display: none;
     overflow: hidden;
     position: absolute;
     z-index: 1;
-    top: 10px;
-    right: 40px;
+    right: 48px;
     background-color: var(--yt-spec-brand-background-primary);
     height: auto;
     width: 148px;
     box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 5);
-}
-#menu-panel.live-chat-history-menu.opened {
-    display: block;
 }
 .menu-content.live-chat-history-menu {
     display: flex;
@@ -98,12 +93,15 @@ yt-live-chat-viewer-engagement-message-renderer {
 }
 .menu-content-text.live-chat-history-menu {
     margin: auto auto auto 4px;
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    font-size: 13px;
+    pointer-events: none;
 }
 #category-select-dialog.live-chat-history-category-dialog {
     position: absolute;
     height: 100%;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
 }
 #background.live-chat-history-category-dialog {
     height: 100%;
@@ -121,7 +119,7 @@ yt-live-chat-viewer-engagement-message-renderer {
     height: 180px;
     margin: auto;
     user-select: none;
-    z-index: 1;
+    z-index: 2;
 }
 #content-headder.live-chat-history-category-dialog {
     display: flex;

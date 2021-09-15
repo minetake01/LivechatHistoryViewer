@@ -2,6 +2,7 @@
 (function start() {
     $('#panel-pages').before(livechatHistoryUI);
     $('#input-container').after(livechatHistoryIcon);
+    $('body').prepend(contentMenu);
     $('body').prepend(categorySelectUI);
     $('body').prepend(cautionElement);
 
@@ -37,16 +38,29 @@
 
     $('#contents.live-chat-history-viewer').on('click', '#content-menu-icon', function(event) {
         currentContent = $(event.target).closest('#chat-content').children('#content').html();
-        $('#menu-panel.opened').not($(event.target).next()).removeClass('opened');
-		$(event.target).next().toggleClass('opened');
+        if ($(event.target).closest('#history-content').length) {
+            $('#entry-content').prop('hidden', false);
+        } else {
+            $('#entry-content').prop('hidden', true);
+        };
+
+        if ($('#menu-panel').attr('hidden') || $(event.target).offset().top !== $('#menu-panel').offset().top) {
+            $('#menu-panel').css('top', $(event.target).offset().top);
+            $('#menu-panel').prop('hidden', false);
+            document.getElementById('tab-contents').addEventListener('mousewheel', noScroll, {passive: false});
+        } else {
+            $('#menu-panel').prop('hidden', true);
+            document.getElementById('tab-contents').removeEventListener('mousewheel', noScroll, {passive: false});
+        };
     });
     $(document).click(function(event) {
-        if(!$(event.target).closest('#content-menu').length) {
-            $('#menu-panel.opened').removeClass('opened');
+        if(!$(event.target).closest('#menu-panel').length && !$(event.target).closest('#chat-content').length) {
+            $('#menu-panel').prop('hidden', true);
+            document.getElementById('tab-contents').removeEventListener('mousewheel', noScroll, {passive: false});
         };
     });
 
-    $('#contents.live-chat-history-viewer').on('click', '#entry-content', function(event) {
+    $('#menu-panel.live-chat-history-menu').on('click', '#entry-content', function() {
         contentCheck(channelID(streamID()), currentContent);
         $('#category-select-dialog').prop('hidden', false);
     });

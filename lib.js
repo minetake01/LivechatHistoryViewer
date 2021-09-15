@@ -9,9 +9,9 @@ const caution_header = chrome.i18n.getMessage('caution_header');
 const caution_message= chrome.i18n.getMessage('caution_message');
 
 const livechatHistoryIcon = '<svg version="1.0" id="icon" class="live-chat-history-viewer" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--iron-icon-fill-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M17 15v2h-6v-2h6zm-6-4v2h6v-2h-6zm0-4v2h6V7h-6zm9-3H4v16h16V4m1-1v18H3V3h18zM9 15v2H7v-2h2zm-2-4v2h2v-2H7zm0-4v2h2V7H7z"/></svg>';
-const contentMenuIcon = '<svg version="1.0" id="menu-icon" class="live-chat-history-menu" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--iron-icon-fill-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M12 16.5c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5zM10.5 12c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5zm0-6c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5z"/></svg>';
-const entryContentIcon = '<svg version="1.0" id="entry-icon" class="live-chat-history-menu menu-content-icon" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--iron-icon-fill-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M22 13h-4v4h-2v-4h-4v-2h4V7h2v4h4v2zm-8-6H2v1h12V7zM2 12h8v-1H2v1zm0 4h8v-1H2v1z"/></svg>';
-const deleteContentIcon = '<svg version="1.0" id="delete-icon" class="live-chat-history-menu menu-content-icon" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--iron-icon-fill-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M11 17H9V8h2v9zm4-9h-2v9h2V8zm4-4v1h-1v16H6V5H5V4h4V3h6v1h4zm-2 1H7v15h10V5z"/></svg>';
+const contentMenuIcon = '<svg version="1.0" id="menu-icon" class="live-chat-history-content" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--iron-icon-fill-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M12 16.5c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5zM10.5 12c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5zm0-6c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5z"/></svg>';
+const entryContentIcon = '<svg version="1.0" id="entry-icon" class="live-chat-history-menu menu-content-icon" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--yt-live-chat-icon-button-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M22 13h-4v4h-2v-4h-4v-2h4V7h2v4h4v2zm-8-6H2v1h12V7zM2 12h8v-1H2v1zm0 4h8v-1H2v1z"/></svg>';
+const deleteContentIcon = '<svg version="1.0" id="delete-icon" class="live-chat-history-menu menu-content-icon" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--yt-live-chat-icon-button-color, currentcolor); stroke: var(--iron-icon-stroke-color, none)" d="M11 17H9V8h2v9zm4-9h-2v9h2V8zm4-4v1h-1v16H6V5H5V4h4V3h6v1h4zm-2 1H7v15h10V5z"/></svg>';
 const closeIcon = '<svg version="1.0" id="close-icon" class="live-chat-history-category-dialog" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--yt-spec-icon-active-other);" d="m12.7 12 6.6 6.6-.7.7-6.6-6.6-6.6 6.6-.7-.7 6.6-6.6-6.7-6.6.7-.7 6.6 6.6 6.6-6.6.7.7-6.5 6.6z"/></svg>';
 
 let currentContent;
@@ -38,43 +38,28 @@ const livechatHistoryUI = (function(param) {return param[0].replace(/\n|\r/g, ""
         </div>
     </div>
 `;
-function contentElement(chatElement, target) {
-    if (target === 'history') {
-        return (function(param) {return param[0].replace(/\n|\r/g, "");})`
-            <div id="chat-content" class="live-chat-history-menu">
-                <div id="content" class="live-chat-history-menu">` + chatElement + `</div>
-                <div id="content-menu" class="live-chat-history-menu">
-                    <div id="content-menu-icon" class="live-chat-history-menu">` + contentMenuIcon + `</div>
-                    <div id="menu-panel" class="live-chat-history-menu">
-                        <div id="entry-content" class="live-chat-history-menu menu-content">
-                            ` + entryContentIcon + `
-                            <p id="entry-content-text" class="live-chat-history-menu menu-content-text">` + menu_register + `</p>
-                        </div>
-                        <div id="delete-content" class="live-chat-history-menu menu-content">
-                            ` + deleteContentIcon + `
-                            <p id="delete-content-text" class="live-chat-history-menu menu-content-text">` + menu_delete + `</p>
-                        </div>
-                    </div>
-                </div>
+function contentElement(chatElement) {
+    return (function(param) {return param[0].replace(/\n|\r/g, "");})`
+        <div id="chat-content" class="live-chat-history-content">
+            <div id="content" class="live-chat-history-content">` + chatElement + `</div>
+            <div id="content-menu" class="live-chat-history-content">
+                <div id="content-menu-icon" class="live-chat-history-content">` + contentMenuIcon + `</div>
             </div>
-        `;
-    } else {
-        return (function(param) {return param[0].replace(/\n|\r/g, "");})`
-            <div id="chat-content" class="live-chat-history-menu">
-                <div id="content" class="live-chat-history-menu">` + chatElement + `</div>
-                <div id="content-menu" class="live-chat-history-menu">
-                    <div id="content-menu-icon" class="live-chat-history-menu">` + contentMenuIcon + `</div>
-                    <div id="menu-panel" class="live-chat-history-menu">
-                        <div id="delete-content" class="live-chat-history-menu menu-content">
-                            ` + deleteContentIcon + `
-                            <p id="delete-content-text" class="live-chat-history-menu menu-content-text">` + menu_delete + `</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    };
+        </div>
+    `;
 };
+const contentMenu = (function(param) {return param[0].replace(/\n|\r/g, "");})`
+    <div id="menu-panel" class="live-chat-history-menu" hidden>
+        <div id="entry-content" class="live-chat-history-menu menu-content">
+            ` + entryContentIcon + `
+            <p id="entry-content-text" class="live-chat-history-menu menu-content-text">` + menu_register + `</p>
+        </div>
+        <div id="delete-content" class="live-chat-history-menu menu-content">
+            ` + deleteContentIcon + `
+            <p id="delete-content-text" class="live-chat-history-menu menu-content-text">` + menu_delete + `</p>
+        </div>
+    </div>
+`;
 const categorySelectUI = (function(param) {return param[0].replace(/\n|\r/g, "");})`
     <div id="category-select-dialog" class="live-chat-history-category-dialog" hidden>
         <div id="background" class="live-chat-history-category-dialog"></div>
@@ -137,7 +122,7 @@ function updateContents(channelIDPromise) {
     chrome.storage.local.get({historyArray: []}, function(value) {
         historyArray = value.historyArray;
         historyArray.forEach(function(item) {
-            $('#history-content').append(contentElement(item, 'history'));
+            $('#history-content').append(contentElement(item));
         });
     });
     $('#global-content').empty();
@@ -182,4 +167,8 @@ function sendChat(chatElement) {
 		$('#input.yt-live-chat-text-input-field-renderer').html(chatElement);
 		document.querySelector('#input.yt-live-chat-text-input-field-renderer').dispatchEvent(new InputEvent('input'));
 	};
+};
+
+function noScroll(event) {
+    event.preventDefault();
 };
