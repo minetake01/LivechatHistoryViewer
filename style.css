@@ -95,7 +95,7 @@ yt-live-chat-viewer-engagement-message-renderer {
     margin: auto auto auto 4px;
     color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
     font-size: 13px;
-    pointer-events: none;
+    user-select: none;
 }
 #category-select-dialog.live-chat-history-category-dialog {
     position: absolute;

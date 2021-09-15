@@ -15,6 +15,7 @@ const deleteContentIcon = '<svg version="1.0" id="delete-icon" class="live-chat-
 const closeIcon = '<svg version="1.0" id="close-icon" class="live-chat-history-category-dialog" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--yt-spec-icon-active-other);" d="m12.7 12 6.6 6.6-.7.7-6.6-6.6-6.6 6.6-.7-.7 6.6-6.6-6.7-6.6.7-.7 6.6 6.6 6.6-6.6.7.7-6.5 6.6z"/></svg>';
 
 let currentContent;
+let currentCategory;
 let clicktime = 0;
 
 const livechatHistoryUI = (function(param) {return param[0].replace(/\n|\r/g, "");})`

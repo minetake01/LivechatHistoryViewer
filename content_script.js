@@ -38,6 +38,14 @@
 
     $('#contents.live-chat-history-viewer').on('click', '#content-menu-icon', function(event) {
         currentContent = $(event.target).closest('#chat-content').children('#content').html();
+        if ($(event.target).closest('#history-tab-contents')) {
+            currentCategory = 'history';
+        } else if ($(event.target).closest('#channel-tab-contents')) {
+            currentCategory = 'channel';
+        } else {
+            currentCategory = 'global';
+        };
+
         if ($(event.target).closest('#history-content').length) {
             $('#entry-content').prop('hidden', false);
         } else {
@@ -61,6 +69,7 @@
     });
 
     $('#menu-panel.live-chat-history-menu').on('click', '#entry-content', function() {
+        $('#menu-panel').prop('hidden', true);
         contentCheck(channelID(streamID()), currentContent);
         $('#category-select-dialog').prop('hidden', false);
     });
@@ -128,14 +137,15 @@
             sendBackground(messageArray);
         };
     });
-    $('#contents.live-chat-history-viewer').on('click', '#delete-content', function(event) {
-        if ($(event.target).closest('#history-tab-content').length) {
+    $('#menu-panel.live-chat-history-menu').on('click', '#delete-content', function() {
+        $('#menu-panel').prop('hidden', true);
+        if (currentCategory === 'history') {
             let messageArray = {};
             messageArray.type = 'deleteHistory';
             messageArray.chatElement = currentContent;
 
             sendBackground(messageArray);
-        } else if ($(event.target).closest('#channel-tab-content').length) {
+        } else if (currentCategory === 'channel') {
             channelID(streamID()).then(function(channelID) {
                 let messageArray = {};
                 messageArray.type = 'deleteChannel';
@@ -144,7 +154,7 @@
     
                 sendBackground(messageArray);
             });
-        } else if ($(event.target).closest('#global-tab-content').length) {
+        } else if (currentCategory === 'global') {
             let messageArray = {};
             messageArray.type = 'deleteGlobal';
             messageArray.chatElement = currentContent;
