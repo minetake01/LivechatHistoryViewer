@@ -15,6 +15,7 @@ const deleteContentIcon = '<svg version="1.0" id="delete-icon" class="live-chat-
 const closeIcon = '<svg version="1.0" id="close-icon" class="live-chat-history-category-dialog" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 24 24" xml:space="preserve" height="24" width="24"><path style="fill: var(--yt-spec-icon-active-other);" d="m12.7 12 6.6 6.6-.7.7-6.6-6.6-6.6 6.6-.7-.7 6.6-6.6-6.7-6.6.7-.7 6.6 6.6 6.6-6.6.7.7-6.5 6.6z"/></svg>';
 
 let currentContent;
+let clicktime = 0;
 
 const livechatHistoryUI = (function(param) {return param[0].replace(/\n|\r/g, "");})`
     <div id="contents" class="live-chat-history-viewer">
@@ -169,6 +170,21 @@ function sendChat(chatElement) {
 	};
 };
 
-function noScroll(event) {
+function eventBlock(event) {
     event.preventDefault();
+};
+
+function spamBlock() {
+	clicktime += 1
+    console.log(clicktime)
+	if (clicktime == 1) {
+		setTimeout(function(){clicktime = 0}, 60000);
+	} else if (clicktime >= 6) {
+		$('#clickBlocker').prop('hidden', false);
+        document.addEventListener('keydown', eventBlock, {passive: false});
+		setTimeout(function(){
+            $('#clickBlocker').prop('hidden', true);
+            document.removeEventListener('keydown', eventBlock, {passive: false});
+        }, 60000);
+	};
 };

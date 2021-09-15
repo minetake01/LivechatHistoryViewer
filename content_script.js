@@ -47,16 +47,16 @@
         if ($('#menu-panel').attr('hidden') || $(event.target).offset().top !== $('#menu-panel').offset().top) {
             $('#menu-panel').css('top', $(event.target).offset().top);
             $('#menu-panel').prop('hidden', false);
-            document.getElementById('tab-contents').addEventListener('mousewheel', noScroll, {passive: false});
+            document.getElementById('tab-contents').addEventListener('mousewheel', eventBlock, {passive: false});
         } else {
             $('#menu-panel').prop('hidden', true);
-            document.getElementById('tab-contents').removeEventListener('mousewheel', noScroll, {passive: false});
+            document.getElementById('tab-contents').removeEventListener('mousewheel', eventBlock, {passive: false});
         };
     });
     $(document).click(function(event) {
         if(!$(event.target).closest('#menu-panel').length && !$(event.target).closest('#chat-content').length) {
             $('#menu-panel').prop('hidden', true);
-            document.getElementById('tab-contents').removeEventListener('mousewheel', noScroll, {passive: false});
+            document.getElementById('tab-contents').removeEventListener('mousewheel', eventBlock, {passive: false});
         };
     });
 
@@ -78,6 +78,7 @@
             messageArray.chatElement = $('div#input').html();
 
             sendBackground(messageArray);
+            spamBlock();
         };
     });
     $('#input.yt-live-chat-text-input-field-renderer').keydown(function(event) {
@@ -87,6 +88,7 @@
             messageArray.chatElement = $('div#input').html();
 
             sendBackground(messageArray);
+            spamBlock();
         };
     });
 

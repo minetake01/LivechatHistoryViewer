@@ -187,3 +187,37 @@ input[type=checkbox]:checked + label.live-chat-history-category-dialog::before {
     background: var(--paper-checkbox-checked-color);
     border-color: var(--paper-checkbox-checked-color);
 }
+#clickBlocker.live-chat-history-blocker {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+#background.live-chat-history-blocker {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+#content-panel.live-chat-history-blocker {
+    background: var(--yt-spec-brand-background-primary);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 220px;
+    height: 180px;
+    margin: auto;
+    user-select: none;
+    z-index: 3;
+}
+#content-panel-message-header.live-chat-history-blocker {
+    font-size: 16px;
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    margin: 12px 8px 18px 8px;
+}
+#content-panel-message.live-chat-history-blocker {
+    font-size: 14px;
+    color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
+    margin: 0px 8px 0px 8px;
+}
