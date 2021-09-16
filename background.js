@@ -2,12 +2,11 @@ let historyArray = [];
 let channelArray = [];
 let globalArray = [];
 
-let maxMemHistory = 10;
+let maxMemHistory = 15;
 
 (function main() {
     chrome.runtime.onConnect.addListener(function(port) {
         port.onMessage.addListener(function(event) {
-            console.log(event);
             switch (event.type) {
                 case 'sendChat':
                     chrome.storage.local.get({historyArray: []}, function(value) {

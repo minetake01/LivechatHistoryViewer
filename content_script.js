@@ -38,11 +38,11 @@
 
     $('#contents.live-chat-history-viewer').on('click', '#content-menu-icon', function(event) {
         currentContent = $(event.target).closest('#chat-content').children('#content').html();
-        if ($(event.target).closest('#history-tab-contents')) {
+        if ($(event.target).closest('#history-tab-content').length) {
             currentCategory = 'history';
-        } else if ($(event.target).closest('#channel-tab-contents')) {
+        } else if ($(event.target).closest('#channel-tab-content').length) {
             currentCategory = 'channel';
-        } else {
+        } else if ($(event.target).closest('#global-tab-content').length) {
             currentCategory = 'global';
         };
 
