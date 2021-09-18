@@ -1,0 +1,86 @@
+:root {
+    --main-background: #f9f9f9;
+    --header-background: #fff;
+    --content-panel-background: #fff;
+    --input-form-background: #fff;
+    --input-border-color: #f0f0f0;
+    --input-button-background: #fff;
+
+    --main-text-color: #000;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --main-background: #181818;
+        --header-background: #202020;
+        --content-panel-background: #202020;
+        --input-form-background: #121212;
+        --input-border-color: #313131;
+        --input-button-background: #313131;
+
+        --main-text-color: #fff;
+    }
+}
+body {
+    background: var(--main-background);
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+}
+#header {
+    display: flex;
+    background: var(--header-background);
+    height: 56px;
+    width: 100%;
+}
+#icon.header {
+    margin: auto 28px;
+}
+#title.header {
+    color: var(--main-text-color);
+    font-size: 20px;
+    margin: auto 0px;
+    user-select: none;
+}
+#contents.contents {
+    width: 40%;
+    margin: 28px auto 14px;
+}
+.content-panel {
+    background: var(--content-panel-background);
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 16px -10px;
+    margin: 18px 0px;
+    overflow: hidden;
+}
+#title.content {
+    color: var(--main-text-color);
+    font-size: 24px;
+    margin: 16px;
+    user-select: none;
+}
+input[type="number"] {
+    font-size: 18px;
+    color: var(--main-text-color);
+    height: 32px;
+    width: 64px;
+    background: var(--input-form-background);
+    margin: 4px 16px 16px;
+    outline: none;
+    border: 1px solid var(--input-border-color);
+}
+input[type="number"]:focus {
+    border: 1px solid #1c62b9;
+}
+input[type="button"] {
+    color: var(--main-text-color);
+    height: 24px;
+    width: 64px;
+    background: var(--input-button-background);
+    margin: 4px 0px 16px 16px;
+    border: none;
+    cursor: pointer;
+}
+input[type="file"] {
+    display: none;
+}

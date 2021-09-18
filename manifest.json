@@ -1,7 +1,6 @@
 {
 	"manifest_version": 3,
-	"name": "LivechatHistoryViewer",
-	"version_name": "beta",
+	"name": "LiveChatHistoryViewer",
 	"version": "1.0.0",
 	"description": "__MSG_extensionDescription__",
 	"author": "__MSG_extensionAuthor__",
@@ -30,5 +29,9 @@
 	],
 	"background": {
 		"service_worker": "background.js"
+	},
+	"options_ui": {
+		"page": "options.html",
+		"open_in_tab": true
 	}
 }
