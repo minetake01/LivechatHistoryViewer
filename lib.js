@@ -177,7 +177,6 @@ function eventBlock(event) {
 
 function spamBlock() {
 	clicktime += 1
-    console.log(clicktime)
 	if (clicktime == 1) {
 		setTimeout(function(){clicktime = 0}, 60000);
 	} else if (clicktime >= 6) {
