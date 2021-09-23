@@ -1,25 +1,25 @@
 //初期処理
 (function start() {
-    $('#panel-pages').before(livechatHistoryUI);
-    $('#input-container').after(livechatHistoryIcon);
+    $('#panel-pages.yt-live-chat-renderer').before(livechatHistoryUI);
+    $('#input-container.yt-live-chat-message-input-renderer').after(livechatHistoryIcon);
     $('body').prepend(contentMenu);
     $('body').prepend(categorySelectUI);
     $('body').prepend(cautionElement);
-
-    const observer = new MutationObserver(records => {
+        
+    const changeChat = new MutationObserver(function(){
         if (!$('#icon.live-chat-history-viewer').length) {
-            $('#input-container').after(livechatHistoryIcon);
+            $('#input-container.yt-live-chat-message-input-renderer').after(livechatHistoryIcon);
         };
     });
 
-    observer.observe(document.getElementById('continuations'), {
+    changeChat.observe(document.getElementById('continuations'), {
         childList: true
     });
 })();
 
 //UIイベント処理
 (function UIevent() {
-    $('#icon.live-chat-history-viewer').click(function() {
+    $('#panel-pages').on('click', '#icon', function() {
         $('#contents.live-chat-history-viewer').toggleClass('opened');
     });
     $('#item-list, #buttons').click(function() {
