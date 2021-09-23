@@ -84,7 +84,7 @@ function requestChannelID(streamID) {
         chrome.tabs.query({url: 'https://www.youtube.com/watch*'}, function(tabs) {
             tabs.forEach(function(tab){
                 let toGetterPort = chrome.tabs.connect(tab.id);
-                toGetterPort.postMessage({getStreamDetail: 'get'});
+                toGetterPort.postMessage({getStreamDetail: 'LCHVget'});
                 
                 toGetterPort.onMessage.addListener(function(response) {
                     if (streamID === response.getter_streamID) {
