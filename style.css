@@ -221,3 +221,7 @@ input[type=checkbox]:checked + label.live-chat-history-category-dialog::before {
     color: var(--yt-live-chat-primary-text-color, var(--yt-spec-text-primary));
     margin: 0px 8px 0px 8px;
 }
+.focused {
+    border: 2px solid var(--yt-live-chat-primary-text-color);
+    box-sizing: border-box;
+}

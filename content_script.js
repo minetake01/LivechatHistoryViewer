@@ -19,12 +19,12 @@
 
 //UIイベント処理
 (function UIevent() {
-    $('#panel-pages').on('click', '#icon', function() {
+    $('#panel-pages').on('click', '#icon.live-chat-history-viewer', function() {
         $('#contents.live-chat-history-viewer').toggleClass('opened');
     });
     $('#item-list, #buttons').click(function() {
         $('#contents.live-chat-history-viewer').removeClass('opened');
-    })
+    });
 
     $('#tab-select-bar div').click(function(event) {
 		$('.tab-selector').removeClass('active');
@@ -35,6 +35,29 @@
 
         updateContents(channelID(streamID()));
 	});
+
+    $(document).keydown(function(event) {
+        switch (event.keyCode) {
+            case 40:
+                eventBlock(event);
+                if (!$('.tab-content.active #chat-content.focused').length) {
+                    $('.tab-content.active #chat-content:first').addClass('focused');
+                } else {
+                    $('.tab-content.active #chat-content.focused').next().addClass('focused');
+                    $('.tab-content.active #chat-content.focused:first').removeClass('focused');
+                };
+            break;
+            case 38:
+                eventBlock(event);
+                if (!$('.tab-content.active #chat-content.focused').length) {
+                    $('.tab-content.active #chat-content:last').addClass('focused');
+                } else {
+                    $('.tab-content.active #chat-content.focused').prev().addClass('focused');
+                    $('.tab-content.active #chat-content.focused:last').removeClass('focused');
+                };
+            break;
+        };
+    });
 
     $('#contents.live-chat-history-viewer').on('click', '#content-menu-icon', function(event) {
         currentContent = $(event.target).closest('#chat-content').children('#content').html();
