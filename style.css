@@ -29,6 +29,7 @@ yt-live-chat-viewer-engagement-message-renderer {
 }
 .tab-content.live-chat-history-viewer {
     display: none;
+    position: relative;
 }
 .tab-content.live-chat-history-viewer.active {
     display: block;
@@ -222,6 +223,6 @@ input[type=checkbox]:checked + label.live-chat-history-category-dialog::before {
     margin: 0px 8px 0px 8px;
 }
 .focused {
-    border: 2px solid var(--yt-live-chat-primary-text-color);
-    box-sizing: border-box;
+    outline: 2px solid var(--yt-live-chat-primary-text-color);
+    outline-offset: -2px;
 }

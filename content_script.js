@@ -27,13 +27,12 @@
     });
 
     $('#tab-select-bar div').click(function(event) {
+        updateContents(channelID(streamID()));
 		$('.tab-selector').removeClass('active');
 		$(event.target).addClass('active');
 
 		$('.tab-content').removeClass('active');
 		$('.tab-content').eq($(event.target).index()).addClass('active');
-
-        updateContents(channelID(streamID()));
 	});
 
     $(document).keydown(function(event) {
@@ -46,6 +45,7 @@
                     $('.tab-content.active #chat-content.focused').next().addClass('focused');
                     $('.tab-content.active #chat-content.focused:first').removeClass('focused');
                 };
+                $('.tab-content.active > .chat-content').animate({scrollTop: $('.tab-content.active #chat-content.focused').position().top + $('.tab-content.active > .chat-content').scrollTop()}, 200);
             break;
             case 38:
                 eventBlock(event);
@@ -55,9 +55,61 @@
                     $('.tab-content.active #chat-content.focused').prev().addClass('focused');
                     $('.tab-content.active #chat-content.focused:last').removeClass('focused');
                 };
+                $('.tab-content.active > .chat-content').animate({scrollTop: $('.tab-content.active #chat-content.focused').position().top + $('.tab-content.active > .chat-content').scrollTop()}, 200);
+            break;
+            case 9:
+                eventBlock(event);
+                if (!event.shiftKey) {
+                    if (!$('.tab-content.active #chat-content.focused').length) {
+                        $('.tab-content.active #chat-content:first').addClass('focused');
+                    } else {
+                        $('.tab-content.active #chat-content.focused').next().addClass('focused');
+                        $('.tab-content.active #chat-content.focused:first').removeClass('focused');
+                    };
+                    $('.tab-content.active > .chat-content').animate({scrollTop: $('.tab-content.active #chat-content.focused').position().top + $('.tab-content.active > .chat-content').scrollTop()}, 200);
+                } else {
+                    if (!$('.tab-content.active #chat-content.focused').length) {
+                        $('.tab-content.active #chat-content:last').addClass('focused');
+                    } else {
+                        $('.tab-content.active #chat-content.focused').prev().addClass('focused');
+                        $('.tab-content.active #chat-content.focused:last').removeClass('focused');
+                    };
+                    $('.tab-content.active > .chat-content').animate({scrollTop: $('.tab-content.active #chat-content.focused').position().top + $('.tab-content.active > .chat-content').scrollTop()}, 200);
+                };
+            break;
+            case 39:
+                updateContents(channelID(streamID()));
+                if ($('.tab-selector.active').next().length) {
+                    $('.tab-selector.active').next().addClass('active');
+                    $('.tab-selector.active:first').removeClass('active');
+                    $('.tab-content.active').next().addClass('active');
+                    $('.tab-content.active:first').removeClass('active');
+                } else {
+                    $('.tab-selector:first').addClass('active');
+                    $('.tab-selector.active:last').removeClass('active');
+                    $('.tab-content:first').addClass('active');
+                    $('.tab-content.active:last').removeClass('active');
+                };
+            break;
+            case 37:
+                updateContents(channelID(streamID()));
+                if ($('.tab-selector.active').prev().length) {
+                    $('.tab-selector.active').prev().addClass('active');
+                    $('.tab-selector.active:last').removeClass('active');
+                    $('.tab-content.active').prev().addClass('active');
+                    $('.tab-content.active:last').removeClass('active');
+                } else {
+                    $('.tab-selector:last').addClass('active');
+                    $('.tab-selector.active:first').removeClass('active');
+                    $('.tab-content:last').addClass('active');
+                    $('.tab-content.active:first').removeClass('active');
+                };
             break;
         };
     });
+    $(document).click(function() {
+        $('.tab-content.active #chat-content.focused').removeClass('focused');
+    })
 
     $('#contents.live-chat-history-viewer').on('click', '#content-menu-icon', function(event) {
         currentContent = $(event.target).closest('#chat-content').children('#content').html();
