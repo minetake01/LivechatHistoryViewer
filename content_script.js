@@ -105,11 +105,11 @@
                     $('.tab-content.active:first').removeClass('active');
                 };
             break;
+            case 13:
+                sendChat($('#chat-content.focused > #content').html());
+            break;
         };
     });
-    $(document).click(function() {
-        $('.tab-content.active #chat-content.focused').removeClass('focused');
-    })
 
     $('#contents.live-chat-history-viewer').on('click', '#content-menu-icon', function(event) {
         currentContent = $(event.target).closest('#chat-content').children('#content').html();
@@ -137,6 +137,7 @@
         };
     });
     $(document).click(function(event) {
+        $('.tab-content.active #chat-content.focused').removeClass('focused');
         if(!$(event.target).closest('#menu-panel').length && !$(event.target).closest('#chat-content').length) {
             $('#menu-panel').prop('hidden', true);
             document.getElementById('tab-contents').removeEventListener('mousewheel', eventBlock, {passive: false});
