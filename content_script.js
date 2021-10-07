@@ -20,7 +20,12 @@
 //UIイベント処理
 (function UIevent() {
     $('#panel-pages').on('click', '#icon.live-chat-history-viewer', function() {
-        $('#contents.live-chat-history-viewer').toggleClass('opened');
+        if ($('#item-offset').innerHeight()-$('#item-scroller').innerHeight() === $('#item-scroller').scrollTop()) {
+            $('#contents.live-chat-history-viewer').toggleClass('opened');
+            $('#item-scroller').animate({scrollTop: $('#item-offset').innerHeight()}, 200);
+        } else {
+            $('#contents.live-chat-history-viewer').toggleClass('opened');
+        };
     });
     $('#item-list, #buttons').click(function() {
         $('#contents.live-chat-history-viewer').removeClass('opened');
