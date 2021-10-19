@@ -5,7 +5,7 @@
     $('body').prepend(contentMenu);
     $('body').prepend(categorySelectUI);
     $('body').prepend(cautionElement);
-        
+
     const changeChat = new MutationObserver(function(){
         if (!$('#icon.live-chat-history-viewer').length) {
             $('#input-container.yt-live-chat-message-input-renderer').after(livechatHistoryIcon);
@@ -161,6 +161,8 @@
 })();
 
 (function background() {
+    let index = -1;
+
     $('#button.yt-button-renderer').click(function() {
         if ($('div#input').html() != "") {
             let messageArray = {};
@@ -169,6 +171,8 @@
 
             sendBackground(messageArray);
             spamBlock();
+
+            index = -1;
         };
     });
     $('#input.yt-live-chat-text-input-field-renderer').keydown(function(event) {
@@ -179,7 +183,17 @@
 
             sendBackground(messageArray);
             spamBlock();
+
+            index = -1;
         };
+        if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
+            event.stopPropagation();
+            chrome.storage.local.get({historyArray: []}, function(value) {
+                index = event.key === 'ArrowUp' ? Math.min(value.historyArray.length - 1, index + 1) : Math.max(0, index - 1);
+                $('#input.yt-live-chat-text-input-field-renderer').html(value.historyArray[index]);
+                document.querySelector('#input.yt-live-chat-text-input-field-renderer').dispatchEvent(new InputEvent('input'));
+            });
+        }
     });
 
     $('#channel-checkbox.live-chat-history-category-dialog').click(function(event) {
@@ -189,7 +203,7 @@
                 messageArray.type = 'entryChannel';
                 messageArray.channelID = channelID;
                 messageArray.chatElement = currentContent;
-    
+
                 sendBackground(messageArray);
             });
         } else {
@@ -198,7 +212,7 @@
                 messageArray.type = 'deleteChannel';
                 messageArray.channelID = channelID;
                 messageArray.chatElement = currentContent;
-    
+
                 sendBackground(messageArray);
             });
         };
@@ -232,7 +246,7 @@
                 messageArray.type = 'deleteChannel';
                 messageArray.channelID = channelID;
                 messageArray.chatElement = currentContent;
-    
+
                 sendBackground(messageArray);
             });
         } else if (currentCategory === 'global') {
